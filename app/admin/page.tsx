@@ -26,11 +26,6 @@ export default function AdminPage() {
   const [savingId, setSavingId] = useState<number | null>(null);
   const [reasons, setReasons] = useState<Record<number, string>>({});
 
-  async function loadTeams() {
-    const { data, error } = await supabase
-      .from("teams")
-      .select("*")
-      .order("points", { ascending: false })
       .order("id", { ascending: true });
 
     if (error) {
@@ -40,12 +35,8 @@ export default function AdminPage() {
     }
   }
 
-  async function loadEvents() {
-    const { data, error } = await supabase
-      .from("score_events")
-      .select("*")
-      .order("created_at", { ascending: false });
-
+ 
+  
     if (error) {
       console.error(error);
       return;
