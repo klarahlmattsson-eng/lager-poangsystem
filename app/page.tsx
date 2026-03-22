@@ -14,13 +14,12 @@ type ScoreEvent = {
 };
 
 export default async function Home() {
-  const { data: teams, error: teamsError } = await supabase
+
     .from("teams")
     .select("*")
     .order("points", { ascending: false })
     .order("id", { ascending: true });
 
-  const { data: events, error: eventsError } = await supabase
     .from("score_events")
     .select("*")
     .order("created_at", { ascending: false });
