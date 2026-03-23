@@ -140,7 +140,7 @@ export default async function Home() {
 
   return (
   <main
-  style={
+style={{
     minHeight: "100vh",
     backgroundImage: "url('/1.png´)",
     backgroundSize: "cover",
