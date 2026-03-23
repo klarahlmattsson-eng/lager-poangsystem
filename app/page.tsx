@@ -139,12 +139,17 @@ export default async function Home() {
   }
 
   return (
-    <main
-      style={{
-        minHeight: "100vh",
-        background: "#111111",
-        padding: 20,
-        fontFamily: "Arial, sans-serif",
+  <main
+  style={{
+    minHeight: "100vh",
+    backgroundImage: "url('/1.png)",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    padding: 20,
+    fontFamily: "Arial, sans-serif",
+  }}
+>
       }}
     >
       <div
