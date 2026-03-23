@@ -320,12 +320,26 @@ export default function AdminPage() {
       </div>
     </main>
   );
-}        latest[event.team_id] = event;
-      }
-    }
-    setLatestReasonByTeam(latest);
-  }
+async function loadData() {
+  const { data: teamsData } = await supabase
+    .from("teams")
+    .select("*");
 
+  const { data: eventsData } = await supabase
+    .from("score_events")
+    .select("*");
+
+  setTeams((teamsData || []) as Team[]);
+
+  const latest: Record<number, ScoreEvent> = {};
+
+  for (const event of (eventsData || []) as ScoreEvent[]) {
+    if (!latest[event.team_id]) {
+      latest[event.team_id] = event;
+    }
+  }
+  setLatestReasonByTeam(latest);
+}
   useEffect(() => {
     loadData();
   }, []);
