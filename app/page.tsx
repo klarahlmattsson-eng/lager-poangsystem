@@ -1,5 +1,8 @@
 import { supabase } from "../lib/supabase";
+
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
 type Team = {
   id: number;
   name: string;
@@ -128,7 +131,6 @@ export default async function Home() {
   const podiumOrder = [firstTeam, secondTeam, thirdTeam].filter(Boolean) as Team[];
 
   const latestEvent = events[0];
-
   const todaysEvents = events.filter((event) => isToday(event.created_at));
 
   const teamMap = new Map<number, Team>();
@@ -145,7 +147,12 @@ export default async function Home() {
         fontFamily: "Arial, sans-serif",
       }}
     >
-      <div style={{ maxWidth: 900, margin: "0 auto" }}>
+      <div
+        style={{
+          maxWidth: 900,
+          margin: "0 auto",
+        }}
+      >
         <h1
           style={{
             color: "white",
@@ -158,112 +165,31 @@ export default async function Home() {
           POÄNGTAVLA
         </h1>
 
-       <div
-  style={{
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "end",
-    gap: 12,
-    marginBottom: 18,
-    paddingTop: 10,
-  }}
->
-  {podiumOrder.map((team, index) => {
-    const colors = getTeamColors(team);
-
-    const heights = [180, 145, 110];
-    const blockHeight = heights[index] || 110;
-
-    return (
-      <div
-        key={team.id}
-        style={{
-          width: "30%",
-          maxWidth: 120,
-          minWidth: 90,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "flex-end",
-        }}
-      >
         <div
           style={{
-            color: "white",
-            fontWeight: 800,
-            fontSize: 22,
-            marginBottom: 8,
-            textAlign: "center",
-          }}
-        >
-          {getMedal(index)}
-        </div>
-
-        <div
-          style={{
-            background: colors.background,
-            color: colors.text,
-            borderRadius: 22,
-            height: blockHeight,
-            width: "100%",
-            padding: "14px 10px",
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-end",
-            boxShadow:
-              index === 0
-                ? "0 0 0 4px white, 0 0 20px rgba(255,255,255,0.35)"
-                : "0 10px 24px rgba(0,0,0,0.22)",
+            justifyContent: "center",
+            alignItems: "end",
+            gap: 12,
+            marginBottom: 18,
+            paddingTop: 10,
           }}
         >
-          <div
-            style={{
-              fontWeight: 800,
-              fontSize: 14,
-              marginBottom: 8,
-              lineHeight: 1.1,
-              wordBreak: "break-word",
-            }}
-          >
-            {team.name.toUpperCase()}
-          </div>
-
-          <div
-            style={{
-              fontSize: 24,
-              fontWeight: 800,
-              lineHeight: 1,
-              marginBottom: 4,
-            }}
-          >
-            {team.points}
-          </div>
-
-          <div
-            style={{
-              fontSize: 12,
-              fontWeight: 700,
-              opacity: 0.95,
-            }}
-          >
-            poäng
-          </div>
-        </div>
-      </div>
-    );
-  })}
-</div>
+          {podiumOrder.map((team, index) => {
             const colors = getTeamColors(team);
-
-            const heights = [260, 220, 180];
-            const blockHeight = heights[index] || 180;
+            const heights = [180, 145, 110];
+            const blockHeight = heights[index] || 110;
 
             return (
               <div
                 key={team.id}
                 style={{
+                  width: "30%",
+                  maxWidth: 120,
+                  minWidth: 90,
                   display: "flex",
                   flexDirection: "column",
+                  alignItems: "center",
                   justifyContent: "flex-end",
                 }}
               >
@@ -271,8 +197,8 @@ export default async function Home() {
                   style={{
                     color: "white",
                     fontWeight: 800,
-                    fontSize: 24,
-                    marginBottom: 10,
+                    fontSize: 22,
+                    marginBottom: 8,
                     textAlign: "center",
                   }}
                 >
@@ -281,25 +207,28 @@ export default async function Home() {
 
                 <div
                   style={{
-                    background: getTeamColors(team).background,
+                    background: colors.background,
                     color: colors.text,
-                    borderRadius: 26,
-                    minHeight: blockHeight,
-                    padding: 22,
+                    borderRadius: 22,
+                    height: blockHeight,
+                    width: "100%",
+                    padding: "14px 10px",
                     display: "flex",
                     flexDirection: "column",
                     justifyContent: "flex-end",
                     boxShadow:
                       index === 0
-                        ? "0 0 0 4px white, 0 0 24px rgba(255,255,255,0.45)"
-                        : "0 10px 30px rgba(0,0,0,0.28)",
+                        ? "0 0 0 4px white, 0 0 20px rgba(255,255,255,0.35)"
+                        : "0 10px 24px rgba(0,0,0,0.22)",
                   }}
                 >
                   <div
                     style={{
                       fontWeight: 800,
-                      fontSize: 18,
-                      marginBottom: 12,
+                      fontSize: 14,
+                      marginBottom: 8,
+                      lineHeight: 1.1,
+                      wordBreak: "break-word",
                     }}
                   >
                     {team.name.toUpperCase()}
@@ -307,10 +236,10 @@ export default async function Home() {
 
                   <div
                     style={{
-                      fontSize: 42,
+                      fontSize: 24,
                       fontWeight: 800,
                       lineHeight: 1,
-                      marginBottom: 8,
+                      marginBottom: 4,
                     }}
                   >
                     {team.points}
@@ -318,7 +247,7 @@ export default async function Home() {
 
                   <div
                     style={{
-                      fontSize: 18,
+                      fontSize: 12,
                       fontWeight: 700,
                       opacity: 0.95,
                     }}
@@ -389,7 +318,7 @@ export default async function Home() {
                   lineHeight: 1.15,
                 }}
               >
-                {teamMap.get(latestEvent.team_id)?.name || "Okänt lag"} fick{" "}
+                {(teamMap.get(latestEvent.team_id)?.name || "Okänt lag").toUpperCase()} fick{" "}
                 {latestEvent.points_change > 0 ? "+" : ""}
                 {latestEvent.points_change} poäng
               </div>
@@ -481,7 +410,7 @@ export default async function Home() {
                           marginBottom: 4,
                         }}
                       >
-                        {team?.name || "Okänt lag"}
+                        {(team?.name || "Okänt lag").toUpperCase()}
                       </div>
 
                       <div
