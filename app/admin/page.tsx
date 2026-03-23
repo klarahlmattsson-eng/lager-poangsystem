@@ -10,7 +10,7 @@ type Team = {
   points: number;
 };
 
-const ADMIN_PASSWORD = "lager2026";
+const ADMIN_PASSWORD = "1234";
 
 function getTeamColors(team: Team) {
   const name = team.name.toLowerCase();
@@ -43,9 +43,15 @@ export default function AdminPage() {
   const [savingId, setSavingId] = useState<number | null>(null);
 
   useEffect(() => {
-    const saved = localStorage.getItem("admin_unlocked");
-    if (saved === "yes") {
+    const savedUnlocked = localStorage.getItem("admin_unlocked");
+    const savedName = localStorage.getItem("admin_name");
+
+    if (savedUnlocked === "yes") {
       setIsUnlocked(true);
+    }
+
+    if (savedName) {
+      setAdminName(savedName);
     }
   }, []);
 
@@ -69,43 +75,44 @@ export default function AdminPage() {
     setTeams((data || []) as Team[]);
   }
 
- function handleLogin() {
-  if (!adminName.trim()) {
-    setLoginError("Skriv ditt namn");
-    return;
+  function handleLogin() {
+    if (!adminName.trim()) {
+      setLoginError("Skriv ditt namn");
+      return;
+    }
+
+    if (password === ADMIN_PASSWORD) {
+      localStorage.setItem("admin_unlocked", "yes");
+      localStorage.setItem("admin_name", adminName.trim());
+      setIsUnlocked(true);
+      setLoginError("");
+    } else {
+      setLoginError("Fel lösenord");
+    }
   }
-  if (password === ADMIN_PASSWORD) {
-    localStorage.setItem("admin_unlocked", "yes");
-    localStorage.setItem("admin_name", adminName.trim());
-    setIsUnlocked(true);
+
+  function handleLogout() {
+    localStorage.removeItem("admin_unlocked");
+    localStorage.removeItem("admin_name");
+    setIsUnlocked(false);
+    setPassword("");
+    setAdminName("");
     setLoginError("");
-  } else {
-    setLoginError("Fel lösenord");
-  }
-}
-function handleLogout() {
-  localStorage.removeItem("admin_unlocked");
-  localStorage.removeItem("admin_name");
-  setIsUnlocked(false);
-  setPassword("");
-  setAdminName("");
-}
-
- async function changePoints(team: Team, amount: number) {
-  const reason = reasons[team.id]?.trim();
-
-  if (!reason) {
-    alert("Skriv en motivering först.");
-    return;
   }
 
-  setSavingId(team.id);
+  async function changePoints(team: Team, amount: number) {
+    const reason = reasons[team.id]?.trim();
 
-  const adminNameSaved = localStorage.getItem("admin_name") || "";
-  alert("Adminnamn: " + adminNameSaved);
+    if (!reason) {
+      alert("Skriv en motivering först.");
+      return;
+    }
 
-  const newPoints = team.points + amount;
-}
+    setSavingId(team.id);
+
+    const adminNameSaved = localStorage.getItem("admin_name") || "";
+    const newPoints = team.points + amount;
+
     const { error: updateError } = await supabase
       .from("teams")
       .update({ points: newPoints })
@@ -118,14 +125,12 @@ function handleLogout() {
       return;
     }
 
-  const adminNameSaved = localStorage.getItem("admin_name") || "";
-
-const { error: insertError } = await supabase.from("score_events").insert({
-  team_id: team.id,
-  points_change: amount,
-  reason: reason,
-  created_by: adminNameSaved,
-});
+    const { error: insertError } = await supabase.from("score_events").insert({
+      team_id: team.id,
+      points_change: amount,
+      reason: reason,
+      created_by: adminNameSaved,
+    });
 
     if (insertError) {
       console.error(insertError);
@@ -151,8 +156,8 @@ const { error: insertError } = await supabase.from("score_events").insert({
           background: "#111111",
           color: "white",
           display: "flex",
-          justifyContent: "center",
           alignItems: "center",
+          justifyContent: "center",
           padding: 24,
           fontFamily: "Arial, sans-serif",
         }}
@@ -162,29 +167,31 @@ const { error: insertError } = await supabase.from("score_events").insert({
             width: "100%",
             maxWidth: 420,
             background: "#1c1c1c",
-            borderRadius: 18,
+            borderRadius: 20,
             padding: 24,
             boxShadow: "0 10px 30px rgba(0,0,0,0.35)",
           }}
         >
-          <h1 style={{ marginTop: 0, marginBottom: 16 }}>Admin-login</h1>
-<input
-  type="text"
-  value={adminName}
-  onChange={(e) => setAdminName(e.target.value)}
-  placeholder="Skriv ditt namn"
-  style={{
-    width: "100%",
-    padding: "14px 16px",
-    borderRadius: 12,
-    border: "1px solid #555",
-    background: "#2a2a2a",
-    color: "white",
-    fontSize: 16,
-    marginBottom: 12,
-    boxSizing: "border-box",
-  }}
-/>
+          <h1 style={{ fontSize: 32, marginBottom: 20 }}>Admin – Poäng</h1>
+
+          <input
+            type="text"
+            value={adminName}
+            onChange={(e) => setAdminName(e.target.value)}
+            placeholder="Skriv ditt namn"
+            style={{
+              width: "100%",
+              padding: "14px 16px",
+              borderRadius: 12,
+              border: "1px solid #555",
+              background: "#2a2a2a",
+              color: "white",
+              fontSize: 16,
+              marginBottom: 12,
+              boxSizing: "border-box",
+            }}
+          />
+
           <input
             type="password"
             value={password}
@@ -203,6 +210,10 @@ const { error: insertError } = await supabase.from("score_events").insert({
             }}
           />
 
+          {loginError ? (
+            <p style={{ color: "#ff8a8a", marginBottom: 12 }}>{loginError}</p>
+          ) : null}
+
           <button
             onClick={handleLogin}
             style={{
@@ -211,18 +222,14 @@ const { error: insertError } = await supabase.from("score_events").insert({
               borderRadius: 12,
               border: "none",
               background: "white",
-              color: "#111111",
-              fontWeight: 700,
+              color: "#111",
               fontSize: 16,
+              fontWeight: 700,
               cursor: "pointer",
             }}
           >
             Logga in
           </button>
-
-          {loginError && (
-            <p style={{ color: "#ff8c8c", marginTop: 12 }}>{loginError}</p>
-          )}
         </div>
       </main>
     );
@@ -242,27 +249,33 @@ const { error: insertError } = await supabase.from("score_events").insert({
           display: "flex",
           justifyContent: "space-between",
           alignItems: "center",
-          gap: 16,
-          flexWrap: "wrap",
+          gap: 12,
           marginBottom: 24,
+          flexWrap: "wrap",
         }}
       >
-        <h1 style={{ color: "white", margin: 0 }}>Admin – Poäng</h1>
+        <h1 style={{ color: "white", fontSize: 32, margin: 0 }}>Admin – Poäng</h1>
 
-        <button
-          onClick={handleLogout}
-          style={{
-            padding: "10px 14px",
-            borderRadius: 12,
-            border: "none",
-            background: "white",
-            color: "#111111",
-            fontWeight: 700,
-            cursor: "pointer",
-          }}
-        >
-          Logga ut
-        </button>
+        <div style={{ display: "flex", gap: 12, alignItems: "center", flexWrap: "wrap" }}>
+          <span style={{ color: "white", opacity: 0.85 }}>
+            Inloggad som: <strong>{adminName}</strong>
+          </span>
+
+          <button
+            onClick={handleLogout}
+            style={{
+              padding: "10px 16px",
+              borderRadius: 999,
+              border: "1px solid rgba(255,255,255,0.3)",
+              background: "transparent",
+              color: "white",
+              fontWeight: 700,
+              cursor: "pointer",
+            }}
+          >
+            Logga ut
+          </button>
+        </div>
       </div>
 
       <div style={{ display: "grid", gap: 18 }}>
@@ -297,7 +310,7 @@ const { error: insertError } = await supabase.from("score_events").insert({
                     [team.id]: e.target.value,
                   }))
                 }
-                placeholder="✍️ Skriv motivering här..."
+                placeholder="Skriv motivering här"
                 style={{
                   width: "100%",
                   padding: "14px 16px",
@@ -307,8 +320,7 @@ const { error: insertError } = await supabase.from("score_events").insert({
                   color: "white",
                   fontSize: 16,
                   outline: "none",
-                  marginBottom: 12,
-                  boxShadow: "0 4px 12px rgba(0,0,0,0.2)",
+                  marginBottom: 16,
                   boxSizing: "border-box",
                 }}
               />
@@ -331,7 +343,7 @@ const { error: insertError } = await supabase.from("score_events").insert({
                       borderRadius: 999,
                       border: "none",
                       background: "rgba(255,255,255,0.95)",
-                      color: "#111111",
+                      color: "#111",
                       fontWeight: 700,
                       cursor: "pointer",
                     }}
@@ -341,9 +353,9 @@ const { error: insertError } = await supabase.from("score_events").insert({
                 ))}
               </div>
 
-              {savingId === team.id && (
+              {savingId === team.id ? (
                 <p style={{ marginTop: 12, fontWeight: 700 }}>Sparar...</p>
-              )}
+              ) : null}
             </section>
           );
         })}
