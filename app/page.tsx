@@ -108,7 +108,7 @@ export default async function Home() {
       <main
         style={{
           minHeight: "100vh",
-          background: "#111111",
+          background: "##f7f7e1",
           color: "white",
           padding: 24,
           fontFamily: "Arial, sans-serif",
