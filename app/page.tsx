@@ -82,8 +82,12 @@ export default async function Home() {
       </h1>
 
       <div style={{ display: "grid", gap: 18 }}>
-        {(teams || []).map((team: Team) => {
-          const colors = getTeamColors(team);
+       {(teams || []).map((team: Team, index: number) => {
+        let medal = "";
+
+if (index === 0) medal = "👑";
+else if (index === 1) medal = "🥈";
+else if (index === 2) medal = "🥉";
           const latest = latestReasonByTeam.get(team.id);
 
           return (
@@ -98,7 +102,7 @@ export default async function Home() {
               }}
             >
               <div style={{ fontSize: 22, fontWeight: 800, marginBottom: 10 }}>
-                {team.name.toUpperCase()}
+              {medal} {team.name.toUpperCase()}
               </div>
 
               <div style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }}>
