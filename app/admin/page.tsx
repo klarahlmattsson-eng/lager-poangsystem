@@ -34,6 +34,7 @@ function getTeamColors(team: Team) {
 
 export default function AdminPage() {
   const [isUnlocked, setIsUnlocked] = useState(false);
+  const [adminName, setAdminName] = useState("");
   const [password, setPassword] = useState("");
   const [loginError, setLoginError] = useState("");
 
@@ -68,8 +69,21 @@ export default function AdminPage() {
     setTeams((data || []) as Team[]);
   }
 
-  function handleLogin() {
-    if (password === ADMIN_PASSWORD) {
+ function handleLogin() {
+  if (!adminName.trim()) {
+    setLoginError("Skriv ditt namn");
+    return;
+  }
+
+  if (password === ADMIN_PASSWORD) {
+    localStorage.setItem("admin_unlocked", "yes");
+    localStorage.setItem("admin_name", adminName.trim());
+    setIsUnlocked(true);
+    setLoginError("");
+  } else {
+    setLoginError("Fel lösenord");
+  }
+}
       localStorage.setItem("admin_unlocked", "yes");
       setIsUnlocked(true);
       setLoginError("");
@@ -78,7 +92,13 @@ export default function AdminPage() {
     }
   }
 
-  function handleLogout() {
+function handleLogout() {
+  localStorage.removeItem("admin_unlocked");
+  localStorage.removeItem("admin_name");
+  setIsUnlocked(false);
+  setPassword("");
+  setAdminName("");
+}
     localStorage.removeItem("admin_unlocked");
     setIsUnlocked(false);
     setPassword("");
@@ -155,7 +175,23 @@ export default function AdminPage() {
           }}
         >
           <h1 style={{ marginTop: 0, marginBottom: 16 }}>Admin-login</h1>
-
+<input
+  type="text"
+  value={adminName}
+  onChange={(e) => setAdminName(e.target.value)}
+  placeholder="Skriv ditt namn"
+  style={{
+    width: "100%",
+    padding: "14px 16px",
+    borderRadius: 12,
+    border: "1px solid #555",
+    background: "#2a2a2a",
+    color: "white",
+    fontSize: 16,
+    marginBottom: 12,
+    boxSizing: "border-box",
+  }}
+/>
           <input
             type="password"
             value={password}
