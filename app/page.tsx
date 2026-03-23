@@ -90,7 +90,7 @@ else if (index === 2) medal = "🥉";
           const latest = latestReasonByTeam.get(team.id);
       
           return (
-          <section
+         <section
   key={team.id}
   style={{
     background: colors.background,
