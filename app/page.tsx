@@ -16,6 +16,14 @@ type ScoreEvent = {
 
 function getTeamColors(team: Team) {
   const name = team.name.toLowerCase();
+  {(teams || []).map((team: Team, index: number) => {
+  const colors = getTeamColors(team); // 👈 DETTA LÄGGER DU TILL
+
+  let medal = "";
+  if (index === 0) medal = "👑";
+  else if (index === 1) medal = "🥈";
+  else if (index === 2) medal = "🥉";
+    
   const color = (team.color || "").toLowerCase();
 
   if (name.includes("röd") || color.includes("red")) {
