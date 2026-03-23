@@ -115,11 +115,14 @@ function handleLogout() {
       return;
     }
 
-    const { error: insertError } = await supabase.from("score_events").insert({
-      team_id: team.id,
-      points_change: amount,
-      reason: reason,
-    });
+  const adminNameSaved = localStorage.getItem("admin_name") || "";
+
+const { error: insertError } = await supabase.from("score_events").insert({
+  team_id: team.id,
+  points_change: amount,
+  reason: reason,
+  created_by: adminNameSaved,
+});
 
     if (insertError) {
       console.error(insertError);
