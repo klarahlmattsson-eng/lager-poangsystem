@@ -56,7 +56,7 @@ function getTeamColors(team: Team) {
   }
 
   return {
-    background: "#333333",
+    background: "#f7f7e1",
     text: "#ffffff",
     soft: "rgba(255,255,255,0.18)",
   };
