@@ -178,7 +178,7 @@ export default function AdminPage() {
             type="text"
             value={adminName}
             onChange={(e) => setAdminName(e.target.value)}
-            placeholder="Skriv ditt namn"
+            placeholder="Skriv ditt distrikt och namn"
             style={{
               width: "100%",
               padding: "14px 16px",
