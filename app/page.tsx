@@ -103,11 +103,7 @@ else if (index === 2) medal = "🥉";
       index === 0
         ? "0 0 20px rgba(255,255,255,0.8)"
         : "0 10px 30px rgba(0,0,0,0.25)",
-
     transform: index === 0 ? "scale(1.02)" : "scale(1)",
-  }}
->
-                boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
               }}
             >
               <div style={{ fontSize: 22, fontWeight: 800, marginBottom: 10 }}>
