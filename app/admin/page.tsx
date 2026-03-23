@@ -105,8 +105,6 @@ function handleLogout() {
   alert("Adminnamn: " + adminNameSaved);
 
   const newPoints = team.points + amount;
-
-  ...
 }
     const { error: updateError } = await supabase
       .from("teams")
