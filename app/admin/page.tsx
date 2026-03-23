@@ -74,7 +74,6 @@ export default function AdminPage() {
     setLoginError("Skriv ditt namn");
     return;
   }
-
   if (password === ADMIN_PASSWORD) {
     localStorage.setItem("admin_unlocked", "yes");
     localStorage.setItem("admin_name", adminName.trim());
@@ -84,14 +83,6 @@ export default function AdminPage() {
     setLoginError("Fel lösenord");
   }
 }
-      localStorage.setItem("admin_unlocked", "yes");
-      setIsUnlocked(true);
-      setLoginError("");
-    } else {
-      setLoginError("Fel lösenord");
-    }
-  }
-
 function handleLogout() {
   localStorage.removeItem("admin_unlocked");
   localStorage.removeItem("admin_name");
@@ -99,10 +90,6 @@ function handleLogout() {
   setPassword("");
   setAdminName("");
 }
-    localStorage.removeItem("admin_unlocked");
-    setIsUnlocked(false);
-    setPassword("");
-  }
 
   async function changePoints(team: Team, amount: number) {
     const reason = reasons[team.id]?.trim();
