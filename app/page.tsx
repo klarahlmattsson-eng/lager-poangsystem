@@ -77,7 +77,7 @@ export default async function Home() {
           marginBottom: 24,
         }}
       >
-        Poängtavla
+        POÄNGTAVLA
       </h1>
 
       <div style={{ display: "grid", gap: 18 }}>
