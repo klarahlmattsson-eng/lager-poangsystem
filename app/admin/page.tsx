@@ -212,23 +212,6 @@ export default function AdminPage() {
                 ))}
               </div>
 
-              <div
-                style={{
-                  background: "rgba(255,255,255,0.18)",
-                  borderRadius: 12,
-                  padding: 12,
-                  fontSize: 15,
-                  lineHeight: 1.4,
-                }}
-              >
-                <strong>Senaste motivering:</strong>
-                <div style={{ marginTop: 6 }}>
-                  {latest
-                    ? `${latest.points_change > 0 ? "+" : ""}${latest.points_change} — ${latest.reason}`
-                    : "Ingen motivering ännu"}
-                </div>
-              </div>
-
               {savingId === team.id && (
                 <p style={{ marginTop: 12, fontWeight: 700 }}>Sparar...</p>
               )}
