@@ -154,14 +154,17 @@ export default function AdminPage() {
                   }))
                 }
                 placeholder="Skriv motivering här"
-                style={{
-                  width: "100%",
-                  padding: "12px 14px",
-                  borderRadius: 12,
-                  border: "none",
-                  marginBottom: 14,
-                  fontSize: 15,
-                  outline: "none",
+                 style={{
+  width: "100%",
+  padding: "14px 16px",
+  borderRadius: 12,
+  border: "2px solid rgba(255,255,255,0.4)",
+  background: "rgba(255,255,255,0.15)",
+  color: "white",
+  fontSize: 16,
+  outline: "none",
+  marginBottom: 12,
+  boxShadow: "0 4px 12px rgba(0,0,0,0.2)"
                 }}
               />
 
