@@ -320,10 +320,6 @@ export default function AdminPage() {
       </div>
     </main>
   );
-async function loadData() {
-  const { data: teamsData } = await supabase
-    .from("teams")
-    .select("*");
 
   const { data: eventsData } = await supabase
     .from("score_events")
