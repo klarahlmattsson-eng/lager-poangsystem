@@ -1,5 +1,5 @@
 import { supabase } from "../lib/supabase";
-
+export const dynamic = "force-dynamic";
 type Team = {
   id: number;
   name: string;
