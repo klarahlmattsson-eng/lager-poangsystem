@@ -80,9 +80,9 @@ export default async function Home() {
       </h1>
 
       <div style={{ display: "grid", gap: 18 }}>
-       {(teams || []).map((team: Team, index: number) => 
+     {(teams || []).map((team: Team, index: number) => {
       const colors = getTeamColors(team);
-let medal = "";
+      let medal = "";
 if (index === 0) medal = "👑";
 else if (index === 1) medal = "🥈";
 else if (index === 2) medal = "🥉";
