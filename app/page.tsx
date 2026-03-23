@@ -27,7 +27,6 @@ function getTeamColors(team: Team) {
     return {
       background: "#e5093b",
       text: "#ffffff",
-      soft: "rgba(255,255,255,0.18)",
     };
   }
 
@@ -35,7 +34,6 @@ function getTeamColors(team: Team) {
     return {
       background: "#1577ff",
       text: "#ffffff",
-      soft: "rgba(255,255,255,0.18)",
     };
   }
 
@@ -43,7 +41,6 @@ function getTeamColors(team: Team) {
     return {
       background: "#ffd500",
       text: "#1a1a1a",
-      soft: "rgba(255,255,255,0.35)",
     };
   }
 
@@ -51,14 +48,12 @@ function getTeamColors(team: Team) {
     return {
       background: "#7bd67b",
       text: "#ffffff",
-      soft: "rgba(255,255,255,0.18)",
     };
   }
 
   return {
-    background: "#f7f7e1",
+    background: "#333333",
     text: "#ffffff",
-    soft: "rgba(255,255,255,0.18)",
   };
 }
 
@@ -108,13 +103,16 @@ export default async function Home() {
       <main
         style={{
           minHeight: "100vh",
-          background: "##f7f7e1",
-          color: "white",
-          padding: 24,
+          backgroundImage: "url('/1.png')",
+          backgroundSize: "cover",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+          padding: 20,
           fontFamily: "Arial, sans-serif",
+          color: "white",
         }}
       >
-        <h1>Poängtavla</h1>
+        <h1>POÄNGTAVLA</h1>
         <p>Kunde inte ladda sidan just nu.</p>
       </main>
     );
@@ -138,130 +136,47 @@ export default async function Home() {
     teamMap.set(team.id, team);
   }
 
- return (
-  <main
-    style={{
-      minHeight: "100vh",
-      backgroundImage: "url('/1.png')",
-      backgroundSize: "cover",
-      backgroundPosition: "center",
-      backgroundRepeat: "no-repeat",
-      padding: 20,
-      fontFamily: "Arial, sans-serif",
-    }}
-  >
-    <div
+  return (
+    <main
       style={{
-        maxWidth: 900,
-        margin: "0 auto",
+        minHeight: "100vh",
+        backgroundImage: "url('/1.png')",
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+        padding: 20,
+        fontFamily: "Arial, sans-serif",
       }}
     >
-      <h1
-        style={{
-          color: "white",
-          fontSize: 46,
-          marginBottom: 24,
-          marginTop: 0,
-          letterSpacing: 1,
-        }}
-      >
-        POÄNGTAVLA
-      </h1>
-
-     <div
-  style={{
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "end",
-    gap: 12,
-    marginBottom: 18,
-    paddingTop: 10,
-  }}
->
-  {podiumOrder.map((team, index) => {
-    const colors = getTeamColors(team);
-    const heights = [180, 145, 110];
-    const blockHeight = heights[index] || 110;
-
-    return (
       <div
-        key={team.id}
         style={{
-          width: "30%",
-          maxWidth: 120,
-          minWidth: 90,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "flex-end",
+          maxWidth: 900,
+          margin: "0 auto",
         }}
       >
-        <div
+        <h1
           style={{
             color: "white",
-            fontWeight: 800,
-            fontSize: 22,
-            marginBottom: 8,
-            textAlign: "center",
+            fontSize: 46,
+            marginBottom: 24,
+            marginTop: 0,
+            letterSpacing: 1,
           }}
         >
-          {getMedal(index)}
-        </div>
+          POÄNGTAVLA
+        </h1>
 
         <div
           style={{
-            background: colors.background,
-            color: colors.text,
-            borderRadius: 22,
-            height: blockHeight,
-            width: "100%",
-            padding: "14px 10px",
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "flex-end",
-            boxShadow:
-              index === 0
-                ? "0 0 0 4px white, 0 0 20px rgba(255,255,255,0.35)"
-                : "0 10px 24px rgba(0,0,0,0.22)",
+            justifyContent: "center",
+            alignItems: "end",
+            gap: 12,
+            marginBottom: 18,
+            paddingTop: 10,
           }}
         >
-          <div
-            style={{
-              fontWeight: 800,
-              fontSize: 14,
-              marginBottom: 8,
-              lineHeight: 1.1,
-              wordBreak: "break-word",
-            }}
-          >
-            {team.name.toUpperCase()}
-          </div>
-
-          <div
-            style={{
-              fontSize: 24,
-              fontWeight: 800,
-              lineHeight: 1,
-              marginBottom: 4,
-            }}
-          >
-            {team.points}
-          </div>
-
-          <div
-            style={{
-              fontSize: 12,
-              fontWeight: 700,
-              opacity: 0.95,
-            }}
-          >
-            poäng
-          </div>
-        </div>
-      </div>
-    );
-  })}
-</div>
+          {podiumOrder.map((team, index) => {
             const colors = getTeamColors(team);
             const heights = [180, 145, 110];
             const blockHeight = heights[index] || 110;
@@ -430,9 +345,7 @@ export default async function Home() {
               </div>
             </>
           ) : (
-            <div style={{ fontSize: 18, fontWeight: 700 }}>
-              Ingen händelse ännu
-            </div>
+            <div style={{ fontSize: 18, fontWeight: 700 }}>Ingen händelse ännu</div>
           )}
         </div>
 
