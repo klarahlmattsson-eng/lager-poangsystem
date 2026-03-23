@@ -321,10 +321,6 @@ export default function AdminPage() {
     </main>
   );
 
-  const { data: eventsData } = await supabase
-    .from("score_events")
-    .select("*");
-
   setTeams((teamsData || []) as Team[]);
 
   const latest: Record<number, ScoreEvent> = {};
