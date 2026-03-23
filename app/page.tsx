@@ -81,6 +81,8 @@ export default async function Home() {
       </h1>
 
       <div style={{ display: "grid", gap: 18 }}>
+        const topTeams = (teams || []).slice(0, 3);
+const fourthTeam = (teams || [])[3];
      {(teams || []).map((team: Team, index: number) => {
       const colors = getTeamColors(team);
       let medal = "";
@@ -109,7 +111,28 @@ else if (index === 2) medal = "🥉";
               <div style={{ fontSize: 22, fontWeight: 800, marginBottom: 10 }}>
               {medal} {team.name.toUpperCase()}
               </div>
+{fourthTeam && (
+  <div
+    style={{
+      marginTop: 20,
+      background: "#1c1c1c",
+      borderRadius: 16,
+      padding: 16,
+      color: "white",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+    }}
+  >
+    <div style={{ fontWeight: 700 }}>
+      #4 {fourthTeam.name.toUpperCase()}
+    </div>
 
+    <div style={{ fontSize: 18, fontWeight: 700 }}>
+      {fourthTeam.points} poäng
+    </div>
+  </div>
+)}
               <div style={{ fontSize: 28, fontWeight: 700, marginBottom: 16 }}>
                 {team.points} poäng
               </div>
