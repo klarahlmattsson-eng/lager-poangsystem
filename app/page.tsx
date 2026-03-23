@@ -44,6 +44,9 @@ export default async function Home() {
     .select("team_id, points_change, reason, created_at")
     .order("created_at", { ascending: false });
 
+  const topTeams = (teams || []).slice(0, 3);
+  const fourthTeam = (teams || [])[3];
+
   if (teamsError || eventsError) {
     return (
       <main style={{ padding: 24, color: "white", background: "#111", minHeight: "100vh" }}>
