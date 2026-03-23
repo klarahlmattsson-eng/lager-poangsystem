@@ -91,18 +91,23 @@ function handleLogout() {
   setAdminName("");
 }
 
-  async function changePoints(team: Team, amount: number) {
-    const reason = reasons[team.id]?.trim();
+ async function changePoints(team: Team, amount: number) {
+  const reason = reasons[team.id]?.trim();
 
-    if (!reason) {
-      alert("Skriv en motivering först.");
-      return;
-    }
+  if (!reason) {
+    alert("Skriv en motivering först.");
+    return;
+  }
 
-    setSavingId(team.id);
+  setSavingId(team.id);
 
-    const newPoints = team.points + amount;
+  const adminNameSaved = localStorage.getItem("admin_name") || "";
+  alert("Adminnamn: " + adminNameSaved);
 
+  const newPoints = team.points + amount;
+
+  ...
+}
     const { error: updateError } = await supabase
       .from("teams")
       .update({ points: newPoints })
