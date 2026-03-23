@@ -140,33 +140,22 @@ export default async function Home() {
 
   return (
   <main
-  style={{
+  style={
     minHeight: "100vh",
-    backgroundImage: "url('/1.png)",
+    backgroundImage: "url('/1.png´)",
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundRepeat: "no-repeat",
     padding: 20,
     fontFamily: "Arial, sans-serif",
+    }}
+>
+<div
+  style={{
+    maxWidth: 900,
+    margin: "0 auto",
   }}
 >
-      }}
-    >
-      <div
-        style={{
-          maxWidth: 900,
-          margin: "0 auto",
-        }}
-      >
-        <h1
-          style={{
-            color: "white",
-            fontSize: 46,
-            marginBottom: 24,
-            marginTop: 0,
-            letterSpacing: 1,
-          }}
-        >
           POÄNGTAVLA
         </h1>
 
