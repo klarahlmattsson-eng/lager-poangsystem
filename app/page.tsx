@@ -350,7 +350,7 @@ export default async function Home() {
         </div>
 
      <div 
-    style={{ 
+       style={{ 
          background: "rgba(245, 240, 232, 0.85)"
             borderRadius: 26,
             padding: 22,
