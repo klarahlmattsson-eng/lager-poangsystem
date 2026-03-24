@@ -263,19 +263,30 @@ export default async function Home() {
         </div>
 
         {fourthTeam ? (
-          <div
-            style={{
-            background: "rgba(28, 28, 28, 0.85)"
-              color: "white",
-              borderRadius: 20,
-              padding: "18px 20px",
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              gap: 12,
-              marginBottom: 18,
-              boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
-              flexWrap: "wrap",
+        <div
+    style={{
+      background: "rgba(28, 28, 28, 0.85)",
+      color: "white",
+      borderRadius: 20,
+      padding: "18px 20px",
+      display: "flex",
+      justifyContent: "space-between",
+      alignItems: "center",
+      gap: 12,
+      marginBottom: 18,
+      boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
+      flexWrap: "wrap",
+    }}
+  >
+    <div style={{ fontSize: 22, fontWeight: 800 }}>
+      #4 {fourthTeam.name.toUpperCase()}
+    </div>
+
+    <div style={{ fontSize: 22, fontWeight: 800 }}>
+      {fourthTeam.points} poäng
+    </div>
+  </div>
+) : null}
             }}
           >
             <div style={{ fontSize: 22, fontWeight: 800 }}>
