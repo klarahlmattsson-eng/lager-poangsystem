@@ -285,17 +285,8 @@ export default async function Home() {
     <div style={{ fontSize: 22, fontWeight: 800 }}>
       {fourthTeam.points} poäng
     </div>
-  </div>
-            <div style={{ fontSize: 22, fontWeight: 800 }}>
-              #4 {fourthTeam.name.toUpperCase()}
-            </div>
-
-            <div style={{ fontSize: 22, fontWeight: 800 }}>
-              {fourthTeam.points} poäng
-            </div>
-          </div>
-        ) : null}
-
+    </div>
+          ): null}
         <div
           style={{
             background: "#ff7a59",
