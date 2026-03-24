@@ -103,7 +103,7 @@ export default async function Home() {
       <main
         style={{
           minHeight: "100vh",
-         backgroundImage: "url('/2.png')",
+         backgroundImage: "url('/3.png')",
           backgroundSize: "cover",
           backgroundPosition: "center",
           backgroundRepeat: "no-repeat",
@@ -144,6 +144,7 @@ export default async function Home() {
         backgroundSize: "cover",
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
+        backgroundAttachment: "fixed",
         padding: 20,
         fontFamily: "Arial, sans-serif",
       }}
@@ -264,7 +265,7 @@ export default async function Home() {
         {fourthTeam ? (
           <div
             style={{
-              background: "#1c1c1c",
+            background: "rgba(28, 28, 28, 0.85)"
               color: "white",
               borderRadius: 20,
               padding: "18px 20px",
