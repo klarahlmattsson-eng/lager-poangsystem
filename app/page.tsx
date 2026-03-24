@@ -286,9 +286,6 @@ export default async function Home() {
       {fourthTeam.points} poäng
     </div>
   </div>
-) : null}
-            }}
-          >
             <div style={{ fontSize: 22, fontWeight: 800 }}>
               #4 {fourthTeam.name.toUpperCase()}
             </div>
