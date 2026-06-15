@@ -194,7 +194,7 @@ export default async function Home() {
               >
                 <div
                   style={{
-                    color: "white",
+                    color: "black",
                     fontWeight: 800,
                     fontSize: 22,
                     marginBottom: 8,
