@@ -10,7 +10,7 @@ type Team = {
   points: number;
 };
 
-const ADMIN_PASSWORD = "lager2026";
+const ADMIN_PASSWORD = "eagle26";
 
 function getTeamColors(team: Team) {
   const name = team.name.toLowerCase();
